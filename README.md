@@ -23,6 +23,7 @@ The scripts are extendable to work with various other MS Office file extensions.
 - Close Windows Terminal after saving is complete.
     - This would have been useful, but I couldn't figure it out in a reasonable amount of time. It's not as straightforward to implement as one might think: the scripts launch `cmd` to open Windows Terminal (`PowerShell`) to open `PowerShell` yet again to bypass some execution policy Windows has on by default. I didn't want to disable the policy system wide as it's there probably for a reason.
 - Move git commands from the unzip script to a separate file. The reasons above apply here too.
+- Possibly make Git-only workflow more viable. I'll take a shot at implementing this if I'm ever bored.
 - Mac version? I don't currently own a Mac. I'm also planning to transition to some Linux distro when I no longer need Windows for university (most courses assume the students are using Windows PCs).
 
 ## Requirements
