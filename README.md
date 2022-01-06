@@ -1,4 +1,4 @@
-# Readable Word and Excel diffs
+# Zipsi: Git diff utility for Word and Excel documents
 
 ## Disclaimer
 
