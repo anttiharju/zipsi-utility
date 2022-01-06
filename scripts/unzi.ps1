@@ -1,60 +1,53 @@
-# Get Word and Excel files - if you need more filetypes, add them.
-$files = Get-ChildItem .\ -recurse | where {$_.extension -in ".docx",".xlsx"}
+$files = Get-ChildItem .\ -recurse -include *.docx,*.xlsx -exclude zipped*,tmp_copy_*
 
+# Create folders
 ForEach ($file in $files)
 {
-    ## Shared variables
     $path = Split-Path -Path $file.FullName
-    $folderName = ($file.BaseName + "_" + ((Split-Path $file.FullName -Leaf).Split('.'))[1])
+    $extension = ((Split-Path $file.FullName -Leaf).Split('.'))[1]
+    $folderName = ($file.BaseName + "_unzipped_" + $extension)
     $folderPath = ($path + "\" +  $folderName)
+    $destinationPath = ($path + "\tmp_copy_" + $file.BaseName + ".")
 
-    # Remove previously created folder
-    # It exists to have git generate diffs, the original file is left untouched
     Remove-Item -LiteralPath $folderPath -Force -Recurse -ErrorAction SilentlyContinue
     
-    # Create folders for the original files to be unzipped into.
-    # "." is replaced with "_" in the folder name as a folder and a file can't have the same name.
     $folder = New-Item -Path $path -Type Directory -Name $folderName
 
-    # Unzip the original file into the created folder
-    tar -xf $file.FullName -C $folderPath
+    Copy-Item -Path $file.FullName -Destination ($destinationPath + $extension)
+    Rename-Item -Path ($destinationPath + $extension) -NewName ($destinationPath + "zip")
+    Expand-Archive -Path ($destinationPath + "zip") -DestinationPath $folderPath
+    Remove-Item ($destinationPath + "zip")
 }
 
-# Add line breaks to changing files to increase diff readability
-## docx
+# Add line breaks to .docx xmls
 $directories = Get-ChildItem . -recurse -filter "*_docx" -Directory
 
 ForEach ($directory in $directories)
 {
-    echo ("TITLE:" + $directory.BaseName)
-
     $files = Get-ChildItem $directory.FullName -recurse | where {$_.extension -in ".xml",".rels"}
     
     ForEach ($file in $files)
     {
-        echo $file.BaseName
         $content = Get-Content -LiteralPath $file.FullName
         $content -replace "><", ">`n<" | Set-Content -LiteralPath $file.FullName
     }
 }
 
-## xlsx - I know, I know, this should be DRY'd but this works.
+## Add line breaks to .xlsx xmls - I know, I know, this should be DRY'd
 $directories = Get-ChildItem . -recurse -filter "*_xlsx" -Directory
 
 ForEach ($directory in $directories)
 {
-    echo ("TITLE:" + $directory.BaseName)
-
     $files = Get-ChildItem $directory.FullName -recurse | where {$_.extension -in ".xml",".rels"}
     
     ForEach ($file in $files)
     {
-        echo $file.BaseName
         $content = Get-Content -LiteralPath $file.FullName
         $content -replace "><", ">`n<" | Set-Content -LiteralPath $file.FullName
     }
 }
 
+# Git interaction should be moved into a separate file
 git status
 echo "`nDo you want to add all and commit?`n"
 pause
