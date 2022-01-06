@@ -1,20 +1,31 @@
 # Readable Word and Excel diffs
-A collection of small scripts that I use to track my bachelor's thesis on GitHub. In short, .docx and .xlsx files are just zip archives and
-- [/scripts/add.ps1](/scripts/add.ps1) unzips them into folders and adds line breaks between the xml tags to make the diffs human readable in GitHub commit history. It also commits and pushes all changes.
-- [_save.bat](_save.bat) is just an easy way to access the script above.
-- [_open_terminal.bat](_open_terminal.bat) is just an easy way to open Windows Terminal in this folder to manually fix things in case something goes wrong.
 
-There's probably a lot more MS Office file extensions that will work with these scripts too. It just that for example PowerPoints usually include images (large binary files) and I don't want to encourage uploading those to GitHub.
+## Disclaimer
+
+I don't take responsibility  if these scripts destroy your work. I think the MIT license reflects that. Always have multiple backups of important work.
+
+That said, the scripts are relatively simple and anyone that has some understanding of programming and git should be able to understand what the scripts do. PowerShell is kind of verbose scripting language, so even if you are not familiar with it you're very likely able to figure out what the individual commands do.
+
+## Description
+
+A collection of small scripts I use to track my bachelor's thesis on GitHub. In short, .docx and .xlsx files are just zip archives and
+- [/scripts/unzi.ps1](/scripts/unzi.ps1) unzips them into folders. It also adds line breaks between the xml tags to make the diffs more readable in GitHub commit history. Additionally, it commits and pushes all changes.
+- [/scripts/zi.ps1](/scripts/unzi.ps1) reconstructs the original files by zipping the unzipped folders. All operations are done on copies, meaning that **the original files shouldn't be modified by these scripts**. The reconstructed files (files with the "zipped" prefix) won't be unzipped again. If you them to be unzipped again, follow the steps below (read them through before doing any of them):
+    1. Manually delete the original file. I hope you know what you're doing.
+    2. Remove the prefix from the reconstructed file.
+    3. Run the unzip script again.
+- [_save.bat](_save.bat) is just an easy way to access the unzip script.
+- [_open_terminal.bat](_open_terminal.bat) is just an easy way to open Windows Terminal to manually fix things if (when) the script fails and messes things up.
+
+The scripts are extendable to work with various other MS Office file extensions. By default, the scripts support .docx and .xlsx files. PowerPoint files aren't supported out of the box as they are more likely to contain images (large binary files) and I don't want to encourage uploading those to GitHub as the platform isn't meant for that kind of storage.
 
 ## Todo
-- Script to automatically create the original files from the unzipped folders.
-    - I couldn't figure how to get `tar` to zip a given folder's contents without putting them inside a folder in the final archived file.
-    - I don't need this as I use OneDrive to sync the original files between my computers. I know, it's a somewhat terrible practice to use two sync systems in parallel, but whatever works, right? Plus I guess it gives extra peace of mind when writing a thesis.
-- Close Windows Terminal after saving is done.
-    - This would have been useful but I couldn't figure it out in a reasonable amount of time. It's not as straightforward as you think as the scripts launch `cmd` to open Windows Terminal (`PowerShell`) to open `PowerShell` yet again to bypass some execution policy Windows has on by default. I didn't want to disable the policy system wide as it's probably there for a reason.
-- Mac version. I don't currently have access to a Mac. On top of that I'm planning to transition to some Linux distro when I no longer need Windows for university (most courses assume the students are using Windows PCs).
+- Close Windows Terminal after saving is complete.
+    - This would have been useful, but I couldn't figure it out in a reasonable amount of time. It's not as straightforward to implement as one might think: the scripts launch `cmd` to open Windows Terminal (`PowerShell`) to open `PowerShell` yet again to bypass some execution policy Windows has on by default. I didn't want to disable the policy system wide as it's there probably for a reason.
+- Move git commands from the unzip script to a separate file. The reasons above apply here too.
+- Mac version? I don't currently own a Mac. I'm also planning to transition to some Linux distro when I no longer need Windows for university (most courses assume the students are using Windows PCs).
 
 ## Requirements
 - Windows Terminal
 - Git
-- Probably something else too; I haven't tested these with a clean install. You'll figure it out if something doesn't work.
+- Probably something else too; I'm haven't tested these scripts with a clean install. You'll figure it out if something doesn't work.
