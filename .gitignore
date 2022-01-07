@@ -3,12 +3,10 @@
 # Ignore .docx and .xlsx
 # 
 # It's better to sync these with OneDrive or another cloud service as Github isn't meant for file
-# storage and these are binary files. Even without a cloud service you can always recreate these
-# by manually zipping the contents of the unzipped folders and renaming the archive with the
-# original filename. It could probably be automated, but I couldn't figure out how to get tar to
-# place the files in the root of the archive on Windows.
+# storage and these are binary files. You can recreate the original files by running the zi.ps1
+# script.
 #
-# The unzipped form of these files will benefit from git's compression abilities and as the
+# The unzipped form of these files will benefit from Git's compression abilities and as the
 # script also adds line breaks, the diffs will be somewhat readable.
 *.docx
 *.xlsx
