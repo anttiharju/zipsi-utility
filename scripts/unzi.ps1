@@ -46,16 +46,3 @@ ForEach ($directory in $directories)
         $content -replace "><", ">`n<" | Set-Content -LiteralPath $file.FullName
     }
 }
-
-# Git interaction should be moved into a separate file
-git status
-echo "`nDo you want to add all and commit?`n"
-pause
-git add --all
-git commit
-echo "`nPush to remote?`n"
-pause
-git push
-# echo "`nOpen the repository in Microsoft Edge?`n"
-# pause
-# start microsoft-edge:<insert-url-here>
