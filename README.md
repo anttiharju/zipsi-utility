@@ -38,7 +38,7 @@ These scripts won't sync the original files. Therefore, I recommend using anothe
 - Improve Git-only workflow.
     - Currently it's assumed that there's another sync system such as OneDrive being used alongside these scripts.
     - It's also somewhat assumed that the work isn't being done on multiple computers. `git pull` isn't done automatically.
-    - This has to be carefully tought out to not destroy any unsaved work.
+    - This has to be carefully thought out to not destroy any unsaved work.
 
 ## Requirements
 - Windows Terminal
