@@ -21,7 +21,7 @@ In short, .docx and .xlsx files are just zip archives and
 - [_save.bat](_save.bat) is just a quick & easy way to run the unzip script and to push all changes.
 - [_open_terminal.bat](_open_terminal.bat) is just an easy way to open Windows Terminal to manually fix things if (when) the scripts fail. Plus you can run [/scripts/zi.ps1](/scripts/zi.ps1) through this.
 
-The scripts scan all subfolders for relevant files and they assume they're being called from the root of the repository. Additionally, they are extendable to work with various other MS Office file extensions. Although by default only .docx and .xlsx file extensions are supported. I don't have a need for other file format and PowerPoint for example are more likely to contain images (large binary files) and I don't want to encourage uploading those to GitHub.
+The scripts scan all subfolders for relevant files and they assume they're being called from the root of the repository. Additionally, they are extendable to work with various other MS Office file extensions. By default only .docx and .xlsx file extensions are supported as 1) I don't have a need for other file formats and 2) PowerPoint files for example are more likely to contain images (large binary files) and I don't want to encourage uploading those to GitHub.
 
 ## Usage
 1. Create a new (private) repo on GitHub and clone that to your computer.
