@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eu
 
 git status
 printf "\nPress any key to add all and commit.\n"
