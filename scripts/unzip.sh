@@ -2,25 +2,31 @@
 set -eu
 
 unzipped_tag="_unzipped_"
+zipped_tag="_zipped"
 
 # shellcheck disable=SC2207
-files=($(find . -type f -not -path "*${unzipped_tag}*" -name "*.docx" -o -name "*.xlsx" -o -name "*.pptx"))
+files=($(find . -type f \
+	-not -path "*${unzipped_tag}*" \
+	-not -path "*${zipped_tag}.*" \
+	-name "*.docx" -o \
+	-name "*.xlsx" -o \
+	-name "*.pptx" \
+	))
 
 calling_path="$(pwd)"
-for fullpath in "${files[@]}"												# ./path/to/a.file
+for fullpath in "${files[@]}"												# ./path/to/file.extension
 do
 	dirname="$(dirname "$fullpath")"										# ./path/to
-	basename="$(basename -- "$fullpath")"									# a.file
-	filename="${basename%%.*}"												# a
-	extension="${basename#*.}"												# file
-	unzip_folder_path="${dirname}/${filename}${unzipped_tag}${extension}"	# ./path/to/a_unzipped_file
+	basename="$(basename -- "$fullpath")"									# file.extension
+	filename="${basename%%.*}"												# file
+	extension="${basename#*.}"												# extension
+	unzip_folder_path="${dirname}/${filename}${unzipped_tag}${extension}"	# ./path/to/file_unzipped_extension (folder)
 
 	mkdir -p "$unzip_folder_path" && cp "$fullpath" "$unzip_folder_path"
 	cd "$unzip_folder_path" || exit
 	unzip -qo "$basename" && rm "$basename"
 	cd "$calling_path" || exit
 done
-
 
 # Increase diff readability by inserting newlines between <tags>
 # MS Office documents have a tendency to have all tags on the same line
