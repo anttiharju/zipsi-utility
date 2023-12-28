@@ -1,9 +1,13 @@
 #!/bin/bash
+
 git status
-read -p "\nDo you want to add all and commit?\n"
+printf "\nPress any key to add all and commit.\n"
+read -r
 git add --all
 git commit
-read -p "\nPush to remote?\n"
+printf "\nPress any key to push to remote.\n"
+read -r
 git push
-# read -p "\nOpen the repository in your web browser?\n"
-# open <insert-url-here>
+printf "\nPress any key to open the repository in your web browser.\n"
+read -r
+open https://github.com/
