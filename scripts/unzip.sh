@@ -22,3 +22,12 @@ do
 	rm "$file_to_unzip"
 	cd "$calling_path" || exit
 done
+
+# Should increase diff readability
+# shellcheck disable=SC2207
+files_to_add_extra_line_breaks_to=($(find . -type f -path "*_unzipped_*"))
+for file in "${files_to_add_extra_line_breaks_to[@]}"
+do
+	# sed doesn't play nice with some filenames such as "[Content_Types].xml"
+	perl -i -p -e 's/></>\n</g' "$file"
+done
