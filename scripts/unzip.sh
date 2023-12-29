@@ -13,6 +13,12 @@ files=($(find . -type f \
 	-not -ipath "*${ZIPPED}.*" \
 	-iname "*.pptx" ))
 
+if [ -z "${files:-}" ]
+then
+	echo "Error: no docx, xslx, or pptx files under current directory."
+	exit 1
+fi
+
 calling_path="$(pwd)"
 for path in "${files[@]}"										# ./path/to/file.extension
 do
@@ -20,12 +26,12 @@ do
 	basename="$(basename -- "$path")"							# file.extension
 	filename="${basename%%.*}"									# file
 	extension="${basename#*.}"									# extension
-	unzip_path="${dirname}/${filename}${UNZIPPED}${extension}"	# ./path/to/file_unzipped_extension (folder)
+	unzip_path="${dirname}/${filename}${UNZIPPED}${extension}"	# ./path/to/file_unzipped_extension (directory)
 
 	mkdir -p "$unzip_path" && cp "$path" "$unzip_path"
-	cd "$unzip_path" || exit
+	cd "$unzip_path" || exit 2 # shouldn't be possible to fail
 	unzip -qo "$basename" && rm "$basename"
-	cd "$calling_path" || exit
+	cd "$calling_path" || exit 3 # shouldn't be possible to fail
 done
 
 # Increase diff readability by inserting newlines between <tags>
