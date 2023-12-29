@@ -32,7 +32,12 @@ done
 # MS Office documents have a tendency to have all tags on the same line
 
 # shellcheck disable=SC2207
-files_to_insert_newlines_to=($(find . -type f -ipath "*${UNZIPPED}*"))
+files_to_insert_newlines_to=($(find . -type f \
+	-ipath "*${UNZIPPED}*" \
+	-iname "*.xml" -or \
+	-ipath "*${UNZIPPED}*" \
+	-iname "*.rels" ))
+# ^ it's not safe to add newlines to other file types (such as .png)
 
 for file in "${files_to_insert_newlines_to[@]}"
 do
