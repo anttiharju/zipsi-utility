@@ -1,6 +1,10 @@
 #!/bin/bash
 set -eu
 
+username=$(git config user.name)
+path=${PWD##*/}
+current_directory=${path:-/}
+
 git status
 printf "\nPress any key to add all and commit.\n"
 read -r
@@ -11,4 +15,4 @@ read -r
 git push
 printf "\nPress any key to open the repository in your web browser.\n"
 read -r
-open https://github.com/
+open "https://github.com/${username}/${current_directory}"
