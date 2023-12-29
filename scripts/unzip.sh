@@ -1,9 +1,6 @@
 #!/bin/bash
 set -eu
 
-UNZIPPED="_unzipped_"
-ZIPPED="_zipped"
-
 # shellcheck disable=SC2207
 files=($(find . -type f \
 	-not -ipath "*${ZIPPED}.*" \
