@@ -8,12 +8,12 @@ case $1 in
 		cp -r ~/zipsi-utility/init/ $CALLER_PATH
 	;;
 	save)
-		./scripts/unzip.sh
-		./scripts/save.sh
+		~/zipsi-utility/scripts/unzip.sh
+		~/zipsi-utility/scripts/save.sh
 	;;
 	restore)
 		# later could be combined with grep and a special restore directory across commit history with interactivity
-		./scripts/zip.sh
+		~/zipsi-utility/scripts/zip.sh
 	;;
 	version)
 		echo "1.1 (macOS, not battle-tested)"
