@@ -2,8 +2,8 @@
 set -eu
 
 username=$(git config user.name)
-path=${PWD##*/}
-current_directory=${path:-/}
+current_directory=${PWD##*/}
+current_directory=${current_directory:-/}
 
 git status
 printf "\nPress any key to add all and commit.\n"

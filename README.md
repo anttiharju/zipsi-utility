@@ -44,11 +44,13 @@ These scripts won't sync the original files. Therefore, I recommend using anothe
     - `git pull` isn't done automatically.
         - This has to be carefully thought out to not destroy any unsaved work.
             - Including git pull in .zshrc of multiple computers for the working directory could be an okay solution.
+- Write tests. Just simple bash ones and compare files before/after and that directory structures are what is expected. While Docker containers may seem like an overkill, I've experienced in-development versions of these scripts messing up the files in my .git folder (just rm -rf the folder and git clone again saved me thankfully), so the isolation would be welcome.
 
 ## Trivia
 ### Why the name
 * I like potato chips and one way to call them in Finnish is "sipsi"
 * These scripts were originally written in PowerShell, and I thought it was funny to do a "domain hack" in the filenames, i.e., "./scripts/zi.ps1" could be leet-speak translated to zipsi, which sounds like sipsi.
+* TL;DR because of powershell and potato chips
 
 ## Dependencies
 - git
@@ -56,4 +58,5 @@ These scripts won't sync the original files. Therefore, I recommend using anothe
 - perl
 - zip
 - unzip
+- iTerm
 - Probably something else too; I haven't tested these scripts with a clean install. You'll figure it out if something doesn't work.
