@@ -49,4 +49,6 @@ for file in "${files_to_insert_newlines_to[@]}"
 do
 	# using perl because can't figure out a way to make sed not interpret parts of $file
 	perl -i -p -e 's/></>\n</g' "$file"
+	# warning: I guess it's not completely safe to substitute >< as it could be part of
+	# normal text and not just xml tags
 done
