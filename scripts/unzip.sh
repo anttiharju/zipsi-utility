@@ -41,6 +41,6 @@ files_to_insert_newlines_to=($(find . -type f \
 
 for file in "${files_to_insert_newlines_to[@]}"
 do
-	# using perl because can't figure out a way to make sed not interpret parts of the string literal
+	# using perl because can't figure out a way to make sed not interpret parts of $file
 	perl -i -p -e 's/></>\n</g' "$file"
 done
