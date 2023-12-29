@@ -4,38 +4,46 @@ Unzip Word, Excel, and PowerPoint documents to track changes with git.
 
 ## Disclaimer
 
-I don't take responsibility if these scripts accidentally delete your work. The MIT license should reflect that. That said, any releases have been battle-tested for writing a thesis. I think these are fine for writing theses, but to write papers one should learn LaTeX. I've opted for MS office docs for now since I think they tend to have less formatting issues for making notes than the papers I've read through (presumably written in LaTeX).
+I don't take responsibility if these scripts accidentally delete your work. The MIT license should reflect that. That said, any releases have been battle-tested for writing a thesis. I think these are fine for writing theses, but to write papers one should learn LaTeX. I've opted for MS office docs for now since I think they tend to have less formatting issues for making notes than the papers I've read through (presumably written in LaTeX). Additionally I know how to produce nice comparison files with Word to send to my thesis supervisor and advisor to get better feedback.
 
 **Always have multiple backups of important work.**
 
 Also read through the "Todo" section below before usage.
 
-## Description - FIXME
+## Description
 
 A collection of small scripts I wrote to track my masters's thesis on GitHub.
 
 In short, .docx, .xlsx, and .pptx files are just zip archives and
 - [/scripts/unzip.sh](/scripts/unzip.sh) unzips them into folders. It also adds line breaks between the xml tags to make the diffs more readable in commit history.
-- [/scripts/zip.sh](/scripts/zip.sh) recreates the original files by zipping the unzipped folders. All operations are done on copies, **leaving the original files unmodified**. The recreated files (ones with a "zipped" prefix) won't be unzipped again. If you want them to be unzipped again, follow the steps below:
+- [/scripts/zip.sh](/scripts/zip.sh) recreates the original files by zipping the unzipped folders. All operations are done on copies, **leaving the original files unmodified**. The recreated files (ones with a "_zipped" postfix) won't be unzipped again. If you want them to be unzipped again, follow the steps below:
     1. Move the original file somewhere else (to a backup folder for example).
-    2. Remove the prefix from the recreated file.
+    2. Remove the postfix from the recreated file.
     3. Run the unzip script again.
-- [_save.bat](_save.bat) is just a quick & easy way to run the unzip script and to push all changes.
-- [_open_terminal.bat](_open_terminal.bat) is just an easy way to open Windows Terminal to manually fix things if (when) the scripts fail. Plus you can run [/scripts/zi.ps1](/scripts/zi.ps1) through this.
+- [_open-terminal.sh](_open_terminal.bat) is just a shortcut to open iTerm in case one is navigating through finder.
 
 The scripts scan all subfolders for relevant files and they assume they're being called from the root of the repository. Additionally, they are extendable to work with various other MS Office file extensions. By default only .docx and .xlsx file extensions are supported as 1) I don't have a need for other file formats and 2) PowerPoint files for example are more likely to contain images (large binary files) and I don't want to encourage uploading those to GitHub.
 
-## Usage - FIXME
-1. Create a new (private) repo on GitHub and clone that to your computer.
-2. Copy the files in this repo (Code -> Download zip) to your new repo's local folder.
-    - If you know what you're doing, you can also just clone this but don't do it because you want to have an easy update channel: I don't guarantee backwards compatibility with future versions.
-3. Work on your .docx or .xlsx files.
-4. Run [_save.bat](_save.bat) whenever you want to save your progress.
+## Installation
+1. do git clone in your home directory ~
+2. install the zsh function from .zshrc
+3. restart your terminal
 
-These scripts won't sync the original files. Therefore, I recommend using another sync system such as OneDrive to have multiple backups.
+## Usage
+1. Navigate to an empty directory
+2. Run `zipsi init`
+3. Add all, do the initial commit, add your docx, xlsx, pptx files 
+4. Run `zipsi save`, go through the flow
+5. Continue working and run `zipsi save` whenever you want to commit
+
+* To restore an old version, navigate to that point in git commit history via git commands, and run `zipsi restore`
+* These scripts won't sync the original files. Therefore, I recommend using another sync system such as OneDrive to have multiple backups.
 
 ## Todo
-- Make it possible to use zipsi by simply dropping a zipsi subfolder to the main project folder. This way the zipsi license file wouldn't need to be in the project root folder.
+The goal here for now was to get the script collection to a point where I'm able to start working on my thesis again. Most QoL, usability, rigorous testing, etc. can be done later on my own time (famous last words?).
+
+- Clean up readme
+- Release on brew and maybe find a proper solution instead of the zsh function
 - Newlines are inserted between any >< symbols (~any xml tags) in the .xml and .rels files of an unzipped document. This might alter actual contents of your documents as well.
     - This can be disabled (just delete all lines in unzip.sh after "# Increase diff readability..")
     - More robust solution should be looked for.
