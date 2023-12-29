@@ -7,10 +7,13 @@ ZIPPED="_zipped"
 # shellcheck disable=SC2207
 files=($(find . -type f \
 	-not -ipath "*${ZIPPED}.*" \
+	-not -name "~\$*" \
 	-iname "*.docx" -or \
 	-not -ipath "*${ZIPPED}.*" \
+	-not -name "~\$*" \
 	-iname "*.xlsx" -or \
 	-not -ipath "*${ZIPPED}.*" \
+	-not -name "~\$*" \
 	-iname "*.pptx" ))
 
 if [ -z "${files:-}" ]
