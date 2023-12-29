@@ -18,6 +18,10 @@ case $1 in
 	version)
 		echo "1.1 (macOS, not battle-tested)"
 	;;
+	unzip)
+		# mainly for testing purposes
+		~/zipsi-utility/scripts/unzip.sh
+	;;
 	*)
 		echo "Error: unrecognized command \"$1\""
 		exit 4
