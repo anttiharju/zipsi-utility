@@ -1,22 +1,22 @@
 #!/bin/bash
+set -eu
 
-unzipped_tag="_unzipped_"
-zipped_tag="_zipped"
+UNZIPPED="_unzipped_"
+ZIPPED="_zipped"
 
 # shellcheck disable=SC2207
 files=($(find . -type d \
-	-path "*${unzipped_tag}docx" -or \
-	-path "*${unzipped_tag}xlsx" -or \
-	-path "*${unzipped_tag}pptx" \
-	))
+	-ipath "*${UNZIPPED}docx" -or \
+	-ipath "*${UNZIPPED}xlsx" -or \
+	-ipath "*${UNZIPPED}pptx" ))
 
 calling_path="$(pwd)"
 for fullpath in "${files[@]}"
 do
 	basename="$(basename -- "$fullpath")"
-	filename="${basename%%"${unzipped_tag}"*}"
-	extension="${basename#*"${unzipped_tag}"}"
-	new_filename="${filename}${zipped_tag}.${extension}"
+	filename="${basename%%"${UNZIPPED}"*}"
+	extension="${basename#*"${UNZIPPED}"}"
+	new_filename="${filename}${ZIPPED}.${extension}"
 
 	cd "$fullpath" || exit
 	zip -qr "../${new_filename}" -- *
